@@ -76,11 +76,14 @@ export default function Component() {
     <>
       <Form method="POST" action={`/dashboard/expenses/${expense.id}`} key={expense.id}>
         <Input label="Title:" type="text" name="title" defaultValue={expense.title} required />
-        <Textarea label="Description:" name="description" />
-        <Input label="Amount (in USD):" type="number" defaultValue={0} name="amount" required />
-        <Button type="submit" disabled={isSubmitting} isPrimary>
-          {isSubmitting ? 'Creating...' : 'Create'}
+        <Textarea label="Description:" name="description" defaultValue={expense.description || ''} />
+        <Input label="Amount (in USD):" type="number" defaultValue={expense.amount} name="amount" required />
+        <Button type="submit" name="intent" value="update" disabled={isSubmitting} isPrimary>
+          {isSubmitting ? 'Save...' : 'Save'}
         </Button>
+        <p aria-live="polite" className="text-green-600">
+          {actionData?.success && 'Changed saved!'}
+        </p>
       </Form>
       <FloatingActionLink to="/dashboard/expenses/">Add expense</FloatingActionLink>
     </>
