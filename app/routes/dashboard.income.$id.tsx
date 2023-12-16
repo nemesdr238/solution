@@ -52,7 +52,7 @@ export async function action({ params, request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const intent = formData.get('intent');
   if (intent === 'delete') {
-    return deleteInvoice(formData, id);
+    return deleteInvoice(request, id);
   }
   if (intent === 'update') {
     return updateInvoice(formData, id);
@@ -76,7 +76,7 @@ export default function Component() {
   return (
     <>
       <Form method="POST" action={`/dashboard/income/${invoice.id}`} key={invoice.id}>
-        <Input label="Title:" type="text" name="title" defaultValue={invoice.id} required />
+        <Input label="Title:" type="text" name="title" defaultValue={invoice.title} required />
         <Textarea label="Description:" name="description" defaultValue={invoice.description || ''} />
         <Input label="Amount (in USD):" type="number" defaultValue={invoice.amount} name="amount" required />
         <Button type="submit" name="intent" value={'update'} isPrimary>

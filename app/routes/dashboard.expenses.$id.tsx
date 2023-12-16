@@ -52,7 +52,7 @@ export async function action({ params, request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const intent = formData.get('intent');
   if (intent === 'delete') {
-    return deleteExpense(formData, id);
+    return deleteExpense(request, id);
   }
   if (intent === 'update') {
     return updateExpense(formData, id);
